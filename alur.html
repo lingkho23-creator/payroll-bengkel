@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Penggajian Autoshop - Dokumentasi Resmi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+
+        .formula-box {
+            background: #ffffff;
+            border-left: 4px solid #3b82f6;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .badge-blue { background-color: #dbeafe; color: #1e40af; }
+        .badge-green { background-color: #dcfce7; color: #166534; }
+        .badge-orange { background-color: #ffedd5; color: #9a3412; }
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-tools text-blue-600 text-2xl"></i>
+                <span class="font-bold text-xl tracking-tight uppercase">Mechanic <span class="text-blue-600">Wage System</span></span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#definisi" class="hover:text-blue-600 transition">Definisi</a>
+                <a href="#alur" class="hover:text-blue-600 transition">Alur Kerja</a>
+                <a href="#formulasi" class="hover:text-blue-600 transition">Formulasi</a>
+                <a href="#pajak" class="hover:text-blue-600 transition">Sistem Pajak</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-white py-16 border-b border-slate-100">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 gradient-text">Transparansi Keuangan & Distribusi Gaji</h1>
+            <p class="text-lg text-slate-500 max-w-2xl mx-auto">
+                Dokumentasi teknis mengenai standarisasi perhitungan gaji mekanik menggunakan metode PUG (Pool Utama Gaji) dan Pajak Marginal Kota.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-20">
+
+        <!-- Section: Definisi -->
+        <section id="definisi">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="p-2 bg-blue-600 rounded-lg text-white">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Kamus Istilah & Definisi</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 bg-white rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="font-bold text-blue-600 mb-4 flex items-center">
+                        <i class="fas fa-building mr-2"></i> Variabel Korporat
+                    </h3>
+                    <ul class="space-y-4 text-sm">
+                        <li>
+                            <span class="font-semibold block">Total Revenue (TR)</span>
+                            <span class="text-slate-500">Seluruh uang kotor hasil transaksi servis/upgrade di bengkel.</span>
+                        </li>
+                        <li>
+                            <span class="font-semibold block">Net Profit</span>
+                            <span class="text-slate-500">Laba bersih perusahaan setelah dipotong biaya operasional, belanja material, asuransi, dan pajak kota.</span>
+                        </li>
+                        <li>
+                            <span class="font-semibold block">Company Vault</span>
+                            <span class="text-slate-500">Brankas pusat yang menampung sisa laba untuk dana cadangan perusahaan.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="p-6 bg-white rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="font-bold text-green-600 mb-4 flex items-center">
+                        <i class="fas fa-user-gear mr-2"></i> Variabel Kinerja Staf
+                    </h3>
+                    <ul class="space-y-4 text-sm">
+                        <li>
+                            <span class="font-semibold block">PUG (Profit Under Governance)</span>
+                            <span class="text-slate-500">Kumpulan dana (pool) yang diambil dari laba bersih untuk digajikan ke seluruh mekanik.</span>
+                        </li>
+                        <li>
+                            <span class="font-semibold block">Hustle Points (Sales)</span>
+                            <span class="text-slate-500">Poin produktivitas individu berdasarkan nilai transaksi yang ditangani.</span>
+                        </li>
+                        <li>
+                            <span class="font-semibold block">Eligible Status</span>
+                            <span class="text-slate-500">Syarat minimal jam on-duty (Boss: 5 jam, Manager: 8 jam) untuk berhak menerima bonus.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Alur Kerja -->
+        <section id="alur" class="relative">
+            <div class="flex items-center space-x-3 mb-10">
+                <div class="p-2 bg-orange-600 rounded-lg text-white">
+                    <i class="fas fa-route"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Alur Perhitungan (Workflow)</h2>
+            </div>
+
+            <div class="space-y-8 relative before:absolute before:left-8 before:top-4 before:bottom-4 before:w-0.5 before:bg-slate-200">
+                <!-- Step 1 -->
+                <div class="relative pl-16 step-card transition-all">
+                    <div class="absolute left-6 top-0 w-5 h-5 bg-orange-600 rounded-full border-4 border-white shadow-sm"></div>
+                    <h3 class="text-lg font-bold mb-2 uppercase text-slate-600 tracking-wider text-sm">Tahap 1: Pembersihan Laba</h3>
+                    <p class="text-slate-500 text-sm mb-4">Mengurangi Revenue dengan biaya operasional, belanja material, dan Asuransi Perusahaan (3%).</p>
+                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium badge-orange italic">Hasil: DPP (Dasar Pengenaan Pajak)</div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative pl-16 step-card transition-all">
+                    <div class="absolute left-6 top-0 w-5 h-5 bg-orange-600 rounded-full border-4 border-white shadow-sm"></div>
+                    <h3 class="text-lg font-bold mb-2 uppercase text-slate-600 tracking-wider text-sm">Tahap 2: Pajak & Alokasi</h3>
+                    <p class="text-slate-500 text-sm mb-4">Menerapkan Pajak Marginal Perusahaan pada DPP untuk mendapatkan Net Profit, lalu membagi dana PUG sesuai persentase pilihan (40/50/60%).</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative pl-16 step-card transition-all">
+                    <div class="absolute left-6 top-0 w-5 h-5 bg-orange-600 rounded-full border-4 border-white shadow-sm"></div>
+                    <h3 class="text-lg font-bold mb-2 uppercase text-slate-600 tracking-wider text-sm">Tahap 3: Distribusi PUG</h3>
+                    <p class="text-slate-500 text-sm mb-4">Membagikan dana PUG ke tiap mekanik berdasarkan bobot: 15% Rata, 15% Jam Kerja, dan 70% Sales/Poin.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative pl-16 step-card transition-all">
+                    <div class="absolute left-6 top-0 w-5 h-5 bg-orange-600 rounded-full border-4 border-white shadow-sm"></div>
+                    <h3 class="text-lg font-bold mb-2 uppercase text-slate-600 tracking-wider text-sm">Tahap 4: Net Individu</h3>
+                    <p class="text-slate-500 text-sm mb-4">Memotong asuransi (3%) dan pajak marginal individu dari Gaji Kotor untuk mendapatkan Take Home Pay.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Formulasi -->
+        <section id="formulasi">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="p-2 bg-blue-600 rounded-lg text-white">
+                    <i class="fas fa-square-root-variable"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Formulasi Matematika</h2>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Gaji Staf -->
+                <div class="formula-box p-8 rounded-r-xl">
+                    <h4 class="font-bold text-slate-700 mb-6 flex items-center justify-between">
+                        Distribusi Gaji Kotor Staf (15/15/70)
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded">Gross Calculation</span>
+                    </h4>
+                    <div class="overflow-x-auto py-4 text-xl">
+                        $$ G = \underbrace{\left( \frac{0.15 \times \text{PUG}}{N} \right)}_{\text{Base}} + \underbrace{\left( \frac{H_i}{H_{tot}} \times 0.15 \times \text{PUG} \right)}_{\text{Hours}} + \underbrace{\left( \frac{S_i}{S_{tot}} \times 0.70 \times \text{PUG} \right)}_{\text{Sales}} $$
+                    </div>
+                    <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-[11px] text-slate-500 uppercase tracking-widest font-bold">
+                        <div>N = Jml Staf</div>
+                        <div>Hi = Jam Individu</div>
+                        <div>Si = Sales Individu</div>
+                        <div>G = Gaji Kotor</div>
+                    </div>
+                </div>
+
+                <!-- Bonus Manajemen -->
+                <div class="bg-slate-900 text-slate-300 p-8 rounded-xl shadow-xl">
+                    <h4 class="font-bold text-white mb-6 flex items-center">
+                        <i class="fas fa-crown text-yellow-400 mr-2"></i> Dana Bonus Manajemen
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="border-l border-slate-700 pl-4">
+                            <p class="text-xs uppercase mb-2">Porsi Boss (18%)</p>
+                            <div class="text-lg text-white">
+                                $$ \text{BossSalary} = \frac{\text{NetProfit} - \text{PUG} \times 0.18}{\text{Boss Eligible}} $$
+                            </div>
+                        </div>
+                        <div class="border-l border-slate-700 pl-4">
+                            <p class="text-xs uppercase mb-2">Porsi Manager (12%)</p>
+                            <div class="text-lg text-white">
+                                $$ \text{MgrSalary} = \frac{\text{NetProfit} - \text{PUG} \times 0.12}{\text{Mgr Eligible}} $$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Pajak -->
+        <section id="pajak" class="pb-20">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="p-2 bg-red-600 rounded-lg text-white">
+                    <i class="fas fa-hand-holding-dollar"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Struktur Pajak Marginal (Kue Lapis)</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Perusahaan -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold mb-4 text-sm text-slate-400 uppercase tracking-widest italic">Pajak Perusahaan (Tiered)</h3>
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="text-left border-b border-slate-100">
+                                <th class="pb-2">Lapisan DPP</th>
+                                <th class="pb-2 text-right">Tarif</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            <tr><td class="py-3">$0 - $500,000</td><td class="text-right font-mono">12%</td></tr>
+                            <tr><td class="py-3">$500,001 - $1M</td><td class="text-right font-mono">10%</td></tr>
+                            <tr><td class="py-3">$1M - $2M</td><td class="text-right font-mono">8%</td></tr>
+                            <tr><td class="py-3">Diatas $2M</td><td class="text-right font-mono">6%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Individu -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold mb-4 text-sm text-slate-400 uppercase tracking-widest italic">Pajak Pendapatan Staf</h3>
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="text-left border-b border-slate-100">
+                                <th class="pb-2 text-xs">Gaji Kotor (G)</th>
+                                <th class="pb-2 text-right text-xs">Formula Pajak</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            <tr><td class="py-3">≤ $15,000</td><td class="text-right font-mono text-blue-600">G × 7%</td></tr>
+                            <tr><td class="py-3">$15k - $25k</td><td class="text-right font-mono text-blue-600">$1,050 + (G-15k) × 10%</td></tr>
+                            <tr><td class="py-3">$25k - $50k</td><td class="text-right font-mono text-blue-600">$2,050 + (G-25k) × 12%</td></tr>
+                            <tr><td class="py-3">> $50k</td><td class="text-right font-mono text-blue-600">$5,050 + (G-50k) × 15%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="mt-8 p-4 bg-blue-50 border border-blue-100 rounded-lg text-sm text-blue-700 flex items-start">
+                <i class="fas fa-info-circle mt-1 mr-3"></i>
+                <p><strong>Catatan Penting:</strong> Pajak bersifat <strong>Marginal</strong>, artinya tarif yang lebih tinggi hanya dikenakan pada selisih nilai di atas batas lapisan, bukan pada seluruh nilai pendapatan.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-500 py-12 text-center text-sm border-t border-slate-800">
+        <p class="mb-2 uppercase tracking-widest font-semibold text-slate-400">&copy; 2024 Autoshop Management System</p>
+        <p>Built for Fairness and Transparency</p>
+    </footer>
+
+</body>
+</html>

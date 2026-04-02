@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentasi Sistem Gaji Mekanik</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background-color: #e2e8f0;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr;
+            margin: 0;
+            padding: 40px 0;
+            place-items: center;
+        }
+
+        .slide-container {
+            align-items: center;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            font-family: 'Lato', sans-serif;
+            height: 720px;
+            justify-content: center;
+            overflow: hidden;
+            padding: 60px;
+            position: relative;
+            width: 1280px;
+            page-break-after: always;
+        }
+
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 100% 0%, #0f172a 0%, transparent 25%),
+                        radial-gradient(circle at 0% 100%, #dc2626 0%, transparent 20%);
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .slide-container > * { position: relative; z-index: 1; }
+
+        h1, h2, h3 {
+            color: #0f172a;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+        }
+
+        .slide-title {
+            font-size: 44px;
+            margin-bottom: 40px;
+            text-align: left;
+            width: 100%;
+            border-left: 8px solid #dc2626;
+            padding-left: 20px;
+        }
+
+        p, li, th, td, .subtitle {
+            color: #334155;
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        .accent-red { color: #dc2626; }
+        .table-layout { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; margin-top: 10px; }
+        .table-layout table { width: 100%; border-collapse: collapse; background: white; }
+        .table-layout th { background-color: #0f172a; color: white; padding: 15px 20px; text-align: left; font-size: 18px; }
+        .table-layout td { padding: 12px 20px; border-bottom: 1px solid #e2e8f0; font-size: 17px; }
+        .table-layout tr:nth-child(even) { background-color: #f8fafc; }
+
+        .title-layout { text-align: center; max-width: 900px; }
+        .title-layout h1 { font-size: 80px; line-height: 1.1; margin-bottom: 20px; }
+        
+        .content-area {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .tiled-content {
+            display: flex;
+            gap: 25px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .tile {
+            background-color: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .tile h3 { font-size: 24px; margin-bottom: 10px; }
+        .tile .icon { color: #dc2626; font-size: 40px; margin-bottom: 15px; }
+
+        .bullet-list { width: 100%; max-width: 1000px; }
+        .bullet-list ul { list-style: none; padding: 0; }
+        .bullet-list li { position: relative; padding-left: 50px; margin-bottom: 20px; font-size: 20px; }
+        .bullet-list i { position: absolute; left: 0; top: 5px; color: #dc2626; font-size: 24px; }
+
+        .formula-box {
+            background: #f1f5f9;
+            border-left: 5px solid #0f172a;
+            padding: 15px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            color: #1e293b;
+            width: 100%;
+        }
+
+        .doughnut-chart-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .doughnut-chart {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .legend { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+        .legend li { display: flex; align-items: center; font-size: 18px; font-weight: bold; }
+        .color-box { width: 20px; height: 20px; border-radius: 4px; margin-right: 15px; }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1 -->
+<div class="slide-container">
+    <div class="title-layout">
+        <h1>MECHANIC <span class="accent-red">WAGE SYSTEM</span></h1>
+        <div style="width: 100px; height: 4px; background: #dc2626; margin: 20px auto;"></div>
+        <p class="subtitle" style="font-size: 28px; color: #64748b;">Manajemen Profit & Alokasi Gaji Terstruktur</p>
+        <p style="margin-top: 40px; font-weight: bold; color: #0f172a; text-transform: uppercase; letter-spacing: 2px;">San Andreas Council of Business and Welfare</p>
+    </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide-container">
+    <h2 class="slide-title">Sumber Pendapatan Kotor (Total Revenue)</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-wrench"></i></div>
+                <h3>1. Jasa (Labor Cost)</h3>
+                <p>Servis, perbaikan kendaraan, dan biaya jasa modifikasi.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-gears"></i></div>
+                <h3>2. Penjualan (Parts)</h3>
+                <p>Suku cadang fisik, material upgrade, dan item habis pakai.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide-container">
+    <h2 class="slide-title">Tahap 1: Kalkulasi Laba Bersih</h2>
+    <div class="content-area">
+        <div class="bullet-list">
+            <div style="background: #0f172a; padding: 25px; border-radius: 12px; margin-bottom: 25px; text-align: center;">
+                <h2 style="color: white; font-size: 34px; margin: 0;">NET PROFIT = Revenue - Expense</h2>
+            </div>
+            <ul>
+                <li><i class="fa-solid fa-circle-check"></i> <strong>Operational:</strong> Tagihan listrik, air, & upgrade bengkel.</li>
+                <li><i class="fa-solid fa-circle-check"></i> <strong>Material:</strong> Biaya belanja stok komponen fisik.</li>
+                <li><i class="fa-solid fa-circle-check"></i> <strong>Insurance:</strong> 3% dari Total Revenue (Kewajiban Kota).</li>
+                <li><i class="fa-solid fa-circle-check"></i> <strong>Company Tax:</strong> Pajak marginal 4 lapis (Detail Slide Berikut).</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: DETAIL PAJAK MARGINAL PERUSAHAAN (UPDATED) -->
+<div class="slide-container">
+    <h2 class="slide-title">Detail Pajak Marginal Perusahaan</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 15px; width: 100%;">Dihitung dari <strong>Sisa Total Revenue</strong> (Setelah dikurangi Asuransi Bengkel):</p>
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lapisan Pendapatan (Tax Bracket)</th>
+                        <th>Rate</th>
+                        <th>Akumulasi Maksimum Per Lapis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Lapisan 1:</strong> $0 - $500,000</td>
+                        <td class="accent-red">12%</td>
+                        <td>Maks. $60,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lapisan 2:</strong> $500,001 - $1,000,000</td>
+                        <td class="accent-red">10%</td>
+                        <td>Maks. $50,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lapisan 3:</strong> $1,000,001 - $2,000,000</td>
+                        <td class="accent-red">8%</td>
+                        <td>Maks. $80,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lapisan 4:</strong> Di atas $2,000,000</td>
+                        <td class="accent-red">6%</td>
+                        <td>Sesuai sisa pendapatan</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="formula-box">
+            <strong>Contoh Logika:</strong> Jika revenue $1.2M, maka pajak = (500k x 12%) + (500k x 10%) + (200k x 8%).
+            <br>Sistem ini menjamin beban pajak yang lebih adil bagi bengkel dengan volume transaksi tinggi.
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide-container">
+    <h2 class="slide-title">Tahap 2: Pemisahan Pool Utama Gaji (PUG)</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 40px; font-size: 22px;">Laba bersih dialokasikan ke "Keranjang Gaji" staf berdasarkan pilihan kebijakan:</p>
+        <div class="tiled-content">
+            <div class="tile">
+                <h1 style="font-size: 50px;">40%</h1>
+                <h3>Keamanan</h3>
+                <p>Fokus cadangan kas.</p>
+            </div>
+            <div class="tile" style="border: 2px solid #dc2626; transform: scale(1.05); z-index: 2;">
+                <h1 style="font-size: 50px;" class="accent-red">50%</h1>
+                <h3>Standar</h3>
+                <p>Keseimbangan ideal.</p>
+            </div>
+            <div class="tile">
+                <h1 style="font-size: 50px;">60%</h1>
+                <h3>Sejahtera</h3>
+                <p>Fokus ke Mekanik.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6 -->
+<div class="slide-container">
+    <h2 class="slide-title">Pajak & Asuransi Individu (Pekerja)</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gaji Kotor (Gross Salary)</th>
+                        <th>Potongan Pajak</th>
+                        <th>Asuransi Kesehatan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>$0 - $15,000</td><td class="accent-red">7%</td><td>3%</td></tr>
+                    <tr><td>$15,001 - $25,000</td><td class="accent-red">10%</td><td>3%</td></tr>
+                    <tr><td>$25,001 - $50,000</td><td class="accent-red">12%</td><td>3%</td></tr>
+                    <tr><td><strong>Di atas $50,000</strong></td><td class="accent-red"><strong>15%</strong></td><td>3%</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 25px; font-style: italic; font-size: 18px;">* Berlaku bagi seluruh tingkatan dari Staf, Manager, hingga Boss.</p>
+    </div>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide-container">
+    <h2 class="slide-title">Distribusi PUG untuk Staf</h2>
+    <div class="content-area">
+        <div class="doughnut-chart-container">
+            <div class="doughnut-chart" style="background: conic-gradient(#0f172a 0% 15%, #64748b 15% 30%, #dc2626 30% 100%);">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 180px; height: 180px; background: #f8fafc; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #dc2626; font-size: 28px;">100% PUG</div>
+            </div>
+            <ul class="legend">
+                <li><div class="color-box" style="background-color: #0f172a;"></div>15% Gaji Dasar (Bagi rata)</li>
+                <li><div class="color-box" style="background-color: #64748b;"></div>15% Komisi Waktu (Jam Kerja)</li>
+                <li><div class="color-box" style="background-color: #dc2626;"></div>70% Komisi Hustle (Poin/Sales)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide-container">
+    <h2 class="slide-title">Penutup: Bonus Manajemen</h2>
+    <div class="content-area">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; width: 100%;">
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-crown"></i></div>
+                <h3>Boss Fund (18%)</h3>
+                <p>Dari sisa Company Pool.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-user-tie"></i></div>
+                <h3>Manager Fund (12%)</h3>
+                <p>Dari sisa Company Pool.</p>
+            </div>
+        </div>
+        <div style="margin-top: 50px; text-align: center;">
+            <h2 style="font-size: 44px;" class="accent-red"></h2>
+            <p>San Andreas Council of Business and Welfare</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
