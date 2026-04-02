@@ -3,68 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Management Console - Bengkel System</title>
+    <title>Management Console - SACBW</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --surface: #ffffff;
-            --background: #f1f5f9;
-        }
-
-        body { 
-            background-color: var(--background); 
-            font-family: 'Inter', sans-serif;
-            color: #1e293b;
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-        }
-
-        .input-focus-effect:focus {
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-            border-color: var(--primary);
-        }
-
-        .sidebar-label {
-            font-size: 0.65rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #94a3b8;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        :root { --primary: #2563eb; --background: #f1f5f9; }
+        body { background-color: var(--background); font-family: 'Inter', sans-serif; color: #1e293b; }
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .sidebar-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin-bottom: 0.5rem; display: block; }
     </style>
 </head>
 <body class="min-h-screen">
-
     <div class="max-w-[1400px] mx-auto px-4 py-8">
-        <!-- Header -->
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
                 <h2 class="text-3xl font-black italic uppercase tracking-tighter">Wage <span class="text-red-600">Simulator</span></h2>
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Management & Staff Payroll Module</p>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">San Andreas Council of Business & Welfare</p>
             </div>
-            
             <div class="flex items-center gap-4">
                 <div class="text-right hidden sm:block">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Waktu Server</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Server Time</p>
                     <p id="currentTime" class="text-sm font-semibold text-slate-700">00:00:00</p>
                 </div>
-                <div class="h-10 w-px bg-slate-200 mx-2"></div>
                 <div class="bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-200 flex items-center gap-3">
                     <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-[10px] font-bold text-white">HQ</div>
                     <span class="text-xs font-bold text-slate-600">Admin Console</span>
@@ -73,216 +34,60 @@
         </header>
 
         <main class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
-            <!-- LEFT PANEL: CONTROLS -->
             <aside class="lg:col-span-4 space-y-6">
-                
-                <!-- Financial Core -->
                 <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
                     <span class="sidebar-label">Revenue & Global Expense</span>
                     <div class="space-y-4">
                         <div class="relative">
                             <i class="fas fa-dollar-sign absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                            <input type="number" id="totalRevenue" class="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-10 pr-4 py-4 text-lg font-bold text-slate-800 input-focus-effect outline-none transition-all" value="1500000" oninput="calculateAll()">
-                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black text-slate-300 uppercase">Gross</span>
+                            <input type="number" id="totalRevenue" class="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-10 pr-4 py-4 text-lg font-bold text-slate-800 outline-none" value="1500000" oninput="calculateAll()">
                         </div>
                         <div class="grid grid-cols-2 gap-3">
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 ml-1 uppercase">Spending</label>
-                                <input type="number" id="spending" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" value="50000" oninput="calculateAll()">
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 ml-1 uppercase">Material</label>
-                                <input type="number" id="material" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" value="250000" oninput="calculateAll()">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="sidebar-label">Alokasi PUG (Keranjang Staf)</label>
-                            <div class="flex gap-2">
-                                <button onclick="setWage(0.4, this)" class="wage-btn flex-1 py-3 rounded-xl border border-slate-200 text-xs font-bold text-slate-500 hover:bg-slate-50 transition-all">40%</button>
-                                <button onclick="setWage(0.5, this)" class="wage-btn flex-1 py-3 rounded-xl border-2 border-blue-600 bg-blue-50 text-xs font-bold text-blue-600 transition-all">50%</button>
-                                <button onclick="setWage(0.6, this)" class="wage-btn flex-1 py-3 rounded-xl border border-slate-200 text-xs font-bold text-slate-500 hover:bg-slate-50 transition-all">60%</button>
-                                <input type="hidden" id="wagePct" value="0.5">
-                            </div>
+                            <input type="number" id="spending" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" placeholder="Spending" value="50000" oninput="calculateAll()">
+                            <input type="number" id="material" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" placeholder="Material" value="250000" oninput="calculateAll()">
                         </div>
                     </div>
                 </div>
 
-                <!-- Database Staf & Manajemen -->
                 <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
-                    <span class="sidebar-label">Database Keaktifan</span>
+                    <span class="sidebar-label">Activity Database</span>
                     <div class="space-y-4">
                         <div class="grid grid-cols-2 gap-3">
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 ml-1 uppercase">Boss (Min 5h)</label>
-                                <input type="number" id="bossEligible" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" value="1" oninput="calculateAll()">
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 ml-1 uppercase">Manager (Min 8h)</label>
-                                <input type="number" id="managerEligible" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" value="2" oninput="calculateAll()">
-                            </div>
+                            <input type="number" id="totalStaff" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" value="12" oninput="calculateAll()">
+                            <input type="number" id="totalHours" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" value="300" oninput="calculateAll()">
                         </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 ml-1 uppercase">Total Mekanik</label>
-                                <input type="number" id="totalStaff" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" value="12" oninput="calculateAll()">
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 ml-1 uppercase">Total Jam Staf</label>
-                                <input type="number" id="totalHours" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" value="300" oninput="calculateAll()">
-                            </div>
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-500 ml-1 uppercase">Total Poin Hustle Staf</label>
-                            <input type="number" id="totalPoints" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" value="8000" oninput="calculateAll()">
-                        </div>
+                        <input type="number" id="totalPoints" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 outline-none" value="8000" oninput="calculateAll()">
                     </div>
                 </div>
             </aside>
 
-            <!-- RIGHT PANEL: DASHBOARD -->
             <div class="lg:col-span-8 space-y-6">
-                
-                <!-- Main Stats -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-blue-600 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden">
-                        <i class="fas fa-chart-line absolute -right-2 -bottom-2 text-6xl text-white/10"></i>
-                        <p class="text-xs font-bold text-blue-100 uppercase tracking-widest mb-1">Net Income Company</p>
-                        <h3 id="netProfit" class="text-3xl font-800 mb-2">$0</h3>
-                        <p class="text-[10px] font-bold bg-white/20 w-fit px-2 py-1 rounded uppercase">Laba Bersih Bengkel</p>
+                    <div class="bg-blue-600 rounded-3xl p-6 text-white shadow-lg">
+                        <p class="text-xs font-bold text-blue-100 uppercase mb-1">Net Income</p>
+                        <h3 id="netProfit" class="text-3xl font-black">$0</h3>
                     </div>
                     <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Alokasi PUG Staf</p>
-                        <h3 id="pugAmount" class="text-3xl font-800 text-slate-800 mb-2">$0</h3>
-                        <p class="text-[10px] font-bold text-blue-600 bg-blue-50 w-fit px-2 py-1 rounded uppercase">Dana Gaji Mekanik</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase mb-1">PUG Allocation</p>
+                        <h3 id="pugAmount" class="text-3xl font-black text-slate-800">$0</h3>
                     </div>
                     <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Company Vault</p>
-                        <h3 id="companyVault" class="text-3xl font-800 text-emerald-600 mb-2">$0</h3>
-                        <p class="text-[10px] font-bold text-emerald-600 bg-emerald-50 w-fit px-2 py-1 rounded uppercase">Sisa Brankas</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase mb-1">Vault</p>
+                        <h3 id="companyVault" class="text-3xl font-black text-emerald-600">$0</h3>
                     </div>
                 </div>
 
-                <!-- Detail Audit -->
-                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
-                    <span class="sidebar-label">Kewajiban Kota & Operasional</span>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Asuransi (3%)</p>
-                            <p id="compInsurance" class="text-sm font-bold text-slate-700">$0</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Pajak Marginal Perush.</p>
-                            <p id="compTax" class="text-sm font-bold text-slate-700">$0</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Operasional (Bill+Mat)</p>
-                            <p id="totalOps" class="text-sm font-bold text-slate-700">$0</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Status Keuangan</p>
-                            <span id="financialStatus" class="text-[10px] font-black text-emerald-500 uppercase">Healthy</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Management Results -->
-                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="px-6 py-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-tight">Bonus Manajemen (Sisa Laba)</h3>
-                        <span class="text-[10px] font-black text-slate-400 uppercase">Distribusi Sisa Laba</span>
-                    </div>
-                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Boss Card -->
-                        <div class="bg-slate-50 rounded-2xl p-5 border border-slate-100">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-100">
-                                    <i class="fas fa-crown"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-sm font-bold text-slate-900 leading-tight">Pangkat: BOSS</h4>
-                                    <p class="text-[10px] font-medium text-slate-500">Bonus 18% Sisa Laba</p>
-                                </div>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="flex justify-between text-xs">
-                                    <span class="text-slate-500">Gaji Kotor / Boss</span>
-                                    <span id="bossGross" class="font-bold text-slate-700">$0</span>
-                                </div>
-                                <div class="flex justify-between text-xs">
-                                    <span class="text-slate-500">Potongan Pajak Individu</span>
-                                    <span id="bossDeduction" class="font-bold text-rose-500">-$0</span>
-                                </div>
-                                <div class="pt-2 mt-2 border-t border-slate-200 flex justify-between items-center">
-                                    <span class="text-[10px] font-black text-slate-400 uppercase">Take Home Pay</span>
-                                    <span id="bossNet" class="text-xl font-800 text-blue-600">$0</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Manager Card -->
-                        <div class="bg-slate-50 rounded-2xl p-5 border border-slate-100">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-100">
-                                    <i class="fas fa-user-tie"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-sm font-bold text-slate-900 leading-tight">Pangkat: MANAGER</h4>
-                                    <p class="text-[10px] font-medium text-slate-500">Bonus 12% Sisa Laba</p>
-                                </div>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="flex justify-between text-xs">
-                                    <span class="text-slate-500">Gaji Kotor / Manager</span>
-                                    <span id="managerGross" class="font-bold text-slate-700">$0</span>
-                                </div>
-                                <div class="flex justify-between text-xs">
-                                    <span class="text-slate-500">Potongan Pajak Individu</span>
-                                    <span id="managerDeduction" class="font-bold text-rose-500">-$0</span>
-                                </div>
-                                <div class="pt-2 mt-2 border-t border-slate-200 flex justify-between items-center">
-                                    <span class="text-[10px] font-black text-slate-400 uppercase">Take Home Pay</span>
-                                    <span id="managerNet" class="text-xl font-800 text-indigo-600">$0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Staff Simulation -->
-                <div class="bg-slate-900 rounded-3xl p-8 text-white relative shadow-2xl overflow-hidden">
-                    <i class="fas fa-tools absolute -right-8 -bottom-8 text-[12rem] text-white/5 rotate-12"></i>
+                <div class="bg-slate-900 rounded-3xl p-8 text-white relative shadow-2xl">
                     <div class="relative z-10">
-                        <div class="flex justify-between items-center mb-8">
-                            <div>
-                                <h3 class="text-xl font-bold mb-1">Simulator Gaji Mekanik</h3>
-                                <p class="text-slate-400 text-xs">Estimasi gaji bersih untuk level Staf & Mekanik.</p>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-[10px] font-bold text-slate-400 block uppercase">GAJI BERSIH ANDA</span>
-                                <span id="staffNet" class="text-3xl font-800 text-blue-400">$0</span>
-                            </div>
-                        </div>
+                        <h3 class="text-xl font-bold mb-4">Staff Wage Simulator</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div class="grid grid-cols-2 gap-4">
-                                <div class="space-y-1">
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Jam Kerja (On-Duty)</label>
-                                    <input type="number" id="staffHours" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 font-bold text-white outline-none focus:border-blue-500 transition-all" value="40" oninput="calculateAll()">
-                                </div>
-                                <div class="space-y-1">
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Poin Hustle Servis</label>
-                                    <input type="number" id="staffPoints" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 font-bold text-white outline-none focus:border-blue-500 transition-all" value="1000" oninput="calculateAll()">
-                                </div>
+                                <input type="number" id="staffHours" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 font-bold text-white outline-none" value="40" oninput="calculateAll()">
+                                <input type="number" id="staffPoints" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 font-bold text-white outline-none" value="1000" oninput="calculateAll()">
                             </div>
-                            <div class="bg-white/5 rounded-2xl p-4 border border-white/10 flex flex-col justify-center">
-                                <div class="flex justify-between text-xs mb-1">
-                                    <span class="text-slate-400 italic">Gaji Kotor (Gross)</span>
-                                    <span id="staffGross" class="font-bold text-emerald-400">$0</span>
-                                </div>
-                                <div class="flex justify-between text-xs">
-                                    <span class="text-slate-400 italic">Potongan (Tax & Ins)</span>
-                                    <span id="staffTax" class="font-bold text-rose-400">-$0</span>
-                                </div>
+                            <div class="text-right">
+                                <span class="text-[10px] font-bold text-slate-400 block uppercase">Take Home Pay</span>
+                                <span id="staffNet" class="text-4xl font-black text-blue-400">$0</span>
                             </div>
                         </div>
                     </div>
@@ -290,193 +95,50 @@
             </div>
         </main>
 
-        <footer class="mt-12 text-center">
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">&copy; 2026 San Andreas Council of Business & Welfare</p>
+        <footer class="mt-12 pb-8 flex flex-col items-center gap-4">
+            <nav class="bg-[#0f172a] px-6 py-3 rounded-2xl flex gap-6 shadow-xl border border-white/5">
+                <button class="text-xs font-bold text-blue-400 uppercase tracking-widest">Simulator</button>
+                <button class="text-xs font-bold text-slate-400 uppercase tracking-widest">Documentation</button>
+            </nav>
+            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">&copy; 2026 San Andreas Council of Business & Welfare</p>
         </footer>
     </div>
 
     <script>
         function updateTime() {
-            const now = new Date();
-            document.getElementById('currentTime').innerText = now.toLocaleTimeString('id-ID');
+            document.getElementById('currentTime').innerText = new Date().toLocaleTimeString('id-ID');
         }
         setInterval(updateTime, 1000);
-        updateTime();
-
-        function setWage(val, btn) {
-            document.getElementById('wagePct').value = val;
-            document.querySelectorAll('.wage-btn').forEach(b => {
-                b.classList.remove('border-2', 'border-blue-600', 'bg-blue-50', 'text-blue-600');
-                b.classList.add('border', 'border-slate-200', 'text-slate-500');
-            });
-            btn.classList.remove('border', 'border-slate-200', 'text-slate-500');
-            btn.classList.add('border-2', 'border-blue-600', 'bg-blue-50', 'text-blue-600');
-            calculateAll();
-        }
 
         function formatUSD(val) {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0
-            }).format(Math.floor(val));
-        }
-
-        // STAFF TAX LOGIC (Personal Income Tax)
-        function calculateStaffTax(gross) {
-            const ins = gross * 0.03;
-            let tax = 0;
-            const G = gross;
-            if (G <= 15000) tax = G * 0.07;
-            else if (G <= 25000) tax = 1050 + ((G - 15000) * 0.10);
-            else if (G <= 50000) tax = 2050 + ((G - 25000) * 0.12);
-            else tax = 5050 + ((G - 50000) * 0.15);
-            return { tax, ins, total: tax + ins };
-        }
-
-        // COMPANY MARGINAL TAX LOGIC
-        function calculateCompanyMarginalTax(remainingRevenue) {
-            let tax = 0;
-            let amount = remainingRevenue;
-
-            // Lapisan 1: $0 - $500,000 (12%)
-            if (amount > 0) {
-                let tier1 = Math.min(amount, 500000);
-                tax += tier1 * 0.12;
-                amount -= tier1;
-            }
-
-            // Lapisan 2: $500,001 - $1,000,000 (10%)
-            if (amount > 0) {
-                let tier2 = Math.min(amount, 500000);
-                tax += tier2 * 0.10;
-                amount -= tier2;
-            }
-
-            // Lapisan 3: $1,000,001 - $2,000,000 (8%)
-            if (amount > 0) {
-                let tier3 = Math.min(amount, 1000000);
-                tax += tier3 * 0.08;
-                amount -= tier3;
-            }
-
-            // Lapisan 4: Di atas $2,000,000 (6%)
-            if (amount > 0) {
-                tax += amount * 0.06;
-            }
-
-            return tax;
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Math.floor(val));
         }
 
         function calculateAll() {
-            // Inputs
             const rev = parseFloat(document.getElementById('totalRevenue').value) || 0;
             const spend = parseFloat(document.getElementById('spending').value) || 0;
             const mat = parseFloat(document.getElementById('material').value) || 0;
-            const wagePct = parseFloat(document.getElementById('wagePct').value);
             
+            // Basic Financials
+            const netProfit = rev - spend - mat;
+            const pug = netProfit * 0.50; // Default 50%
+            const vault = netProfit - pug;
+
+            // Staff Sim
             const nStaff = parseInt(document.getElementById('totalStaff').value) || 1;
             const totHours = parseFloat(document.getElementById('totalHours').value) || 1;
             const totPoints = parseFloat(document.getElementById('totalPoints').value) || 1;
-
-            const bossActive = parseInt(document.getElementById('bossEligible').value) || 0;
-            const managerActive = parseInt(document.getElementById('managerEligible').value) || 0;
-
-            // 1. Company Insurance (3% of Total Revenue)
-            const compIns = rev * 0.03;
-
-            // 2. Base for Company Tax (Revenue after Insurance and Expenses)
-            const remainingForTax = Math.max(0, rev - spend - mat - compIns);
-            
-            // 3. Marginal Company Tax Calculation (New Tier Logic)
-            const compTax = calculateCompanyMarginalTax(remainingForTax);
-
-            // 4. Final Net Income
-            const netProfit = remainingForTax - compTax;
-
-            // 5. Separate PUG and Sisa Laba (Management Bonus Pool)
-            const pug = netProfit * wagePct;
-            const sisaLaba = netProfit - pug;
-
-            // 6. Management Bonus Distribution (from Sisa Laba)
-            const bossFund = sisaLaba * 0.18;
-            const managerFund = sisaLaba * 0.12;
-            const vaultFinal = sisaLaba - bossFund - managerFund;
-
-            // Boss Bonus Calculation
-            let bGross = 0, bNet = 0, bTax = 0;
-            if (bossActive > 0) {
-                bGross = bossFund / bossActive;
-                const bBreakdown = calculateStaffTax(bGross);
-                bTax = bBreakdown.total;
-                bNet = bGross - bTax;
-            }
-
-            // Manager Bonus Calculation
-            let mGross = 0, mNet = 0, mTax = 0;
-            if (managerActive > 0) {
-                mGross = managerFund / managerActive;
-                const mBreakdown = calculateStaffTax(mGross);
-                mTax = mBreakdown.total;
-                mNet = mGross - mTax;
-            }
-
-            // Staff Simulator Calculation (Using PUG)
             const sH = parseFloat(document.getElementById('staffHours').value) || 0;
             const sP = parseFloat(document.getElementById('staffPoints').value) || 0;
-            
-            // Distribution: 15% Base, 15% Time, 70% Hustle
-            const pBase = pug * 0.15;
-            const pTime = pug * 0.15;
-            const pHustle = pug * 0.70;
-            
-            const sGross = (pBase / nStaff) + ((sH / totHours) * pTime) + ((sP / totPoints) * pHustle);
-            const sBreakdown = calculateStaffTax(sGross);
-            const sNet = sGross - sBreakdown.total;
 
-            // UI UPDATES
+            const sGross = (pug * 0.15 / nStaff) + ((sH / totHours) * (pug * 0.15)) + ((sP / totPoints) * (pug * 0.70));
+
             document.getElementById('netProfit').innerText = formatUSD(netProfit);
             document.getElementById('pugAmount').innerText = formatUSD(pug);
-            document.getElementById('companyVault').innerText = formatUSD(vaultFinal);
-
-            // Audit UI
-            document.getElementById('compInsurance').innerText = formatUSD(compIns);
-            document.getElementById('compTax').innerText = formatUSD(compTax);
-            document.getElementById('totalOps').innerText = formatUSD(spend + mat);
-            
-            const statusEl = document.getElementById('financialStatus');
-            if (netProfit > 0) {
-                statusEl.innerText = "HEALTHY";
-                statusEl.className = "text-[10px] font-black text-emerald-500 uppercase";
-            } else {
-                statusEl.innerText = "CRITICAL";
-                statusEl.className = "text-[10px] font-black text-rose-500 uppercase";
-            }
-
-            // Management Cards
-            document.getElementById('bossGross').innerText = formatUSD(bGross);
-            document.getElementById('bossDeduction').innerText = "-" + formatUSD(bTax);
-            document.getElementById('bossNet').innerText = formatUSD(bNet);
-
-            document.getElementById('managerGross').innerText = formatUSD(mGross);
-            document.getElementById('managerDeduction').innerText = "-" + formatUSD(mTax);
-            document.getElementById('managerNet').innerText = formatUSD(mNet);
-
-            // Staff Card
-            document.getElementById('staffGross').innerText = formatUSD(sGross);
-            document.getElementById('staffTax').innerText = "-" + formatUSD(sBreakdown.total);
-            document.getElementById('staffNet').innerText = formatUSD(sNet);
+            document.getElementById('companyVault').innerText = formatUSD(vault);
+            document.getElementById('staffNet').innerText = formatUSD(sGross);
         }
-
         window.onload = calculateAll;
     </script>
-       <footer class="mt-12 pb-8 flex flex-col items-center gap-4">
-            <nav class="bg-[#0f172a] px-6 py-3 rounded-2xl flex gap-6 shadow-xl border border-white/5">
-                <a href="index.html" class="text-xs font-bold text-slate-400 hover:text-white transition uppercase tracking-widest">Home</a>
-                <a href="simulator.html" class="text-xs font-bold text-blue-400 hover:text-white transition uppercase tracking-widest">Simulator</a>
-                <a href="formula.html" class="text-xs font-bold text-slate-400 hover:text-white transition uppercase tracking-widest">Formula</a>
-            </nav>
-            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">&copy; 2026 San Andreas Council of Business & Welfare</p>
-        </footer>
-    </div></body>
+</body>
 </html>
